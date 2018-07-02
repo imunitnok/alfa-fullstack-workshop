@@ -17,7 +17,8 @@
     "ms-vscode.csharp",
     "msjsdiag.debugger-for-chrome",
     "quicktype.quicktype",
-    "xabikos.JavaScriptSnippets"
+    "xabikos.JavaScriptSnippets",
+    "ryanluker.vscode-coverage-gutters"
     // Extension identifier format: ${publisher}.${name}. Example: vscode.csharp
   ]
 }
