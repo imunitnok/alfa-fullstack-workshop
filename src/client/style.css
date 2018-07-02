@@ -1,0 +1,125 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Wide display style */
+.app {
+    height: 100%;
+    display: grid;
+    grid-gap: 5px;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+        "header header"
+        "aside main"
+        "footer footer";
+    background-color: white;
+}
+
+/* Header style */
+header {
+    grid-area: header;
+    display: flex;
+    justify-content: space-between;
+    background-color: #fe0a0a;
+    padding: 15px;
+    vertical-align: right;
+    color: white;
+    font-family: serif;
+    font-size: 150%;
+}
+.logo-image {
+    width: 64px;
+    height: 64px;
+    background-color: white;
+}
+
+
+/* Cards list style */
+aside {
+    grid-area: aside;
+    background-color: white;
+    font-family: Georgia, Arial, sans-serif;
+    font-weight: bolder;
+    color: black;
+}
+.card {
+    display: flex;
+    justify-content: space-between;
+}
+.card:hover {
+    margin: 5px;
+    padding: 10px;
+    background-color: tomato;
+    animation-name: card-hover;
+    animation-duration: 400ms;
+}
+@keyframes card-hover {
+    from {
+        margin: 0px;
+        padding: 15px;
+        background-color: white;
+    }
+    to {
+        margin: 5px;
+        padding: 10px;
+        background-color: tomato;
+    }
+}
+.card:not(:hover) {
+    margin: 0px;
+    padding: 15px;
+    background-color: white;
+    animation-name: card-not-hover;
+    animation-duration: 400ms;
+}
+@keyframes card-not-hover {
+    from {
+        margin: 5px;
+        padding: 10px;
+        background-color: tomato;
+    }
+    to {
+        margin: 0px;
+        padding: 15px;
+        background-color: white;
+    }
+}
+.card__value {
+    padding: 5px;
+    margin-left: auto;
+    font-family: Georgia, Arial, sans-serif;
+    font-weight: bolder;
+    font-size: 120%;
+}
+
+/* Content style */
+main {
+    grid-area: main;
+    background-color: tomato;
+}
+
+/* Footer style */
+footer {
+    grid-area: footer;
+    background-color: black;
+    color: white;
+}
+
+/* Narrow display style */
+@media (max-width: 640px) {
+    .logo-image {
+        visibility: hidden;
+    }
+    .app {
+        grid-gap: 0px;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+        grid-template-areas:
+            "header"
+            "aside";
+    }
+}
