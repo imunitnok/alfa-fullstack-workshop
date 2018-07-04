@@ -13,7 +13,7 @@ namespace ServerTest.ServicesTest
         private IBusinessLogicService blservice = new BusinessLogicService();
 
         [Theory]
-        [InlineData(Currency.RUR, Currency.USD, 1000, "15.954052329291640076579451181")]
+        [InlineData(Currency.RUR, Currency.USD, 1000, "15,954052329291640076579451181")]
         [InlineData(Currency.EUR, Currency.RUR, 100, "7264")]
         [InlineData(Currency.RUR, Currency.RUR, 100, "100")]
         public void GetConvertSumPassed(Currency from, Currency to, decimal valueIn, string valueOut)

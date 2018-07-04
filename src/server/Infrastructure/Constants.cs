@@ -19,7 +19,9 @@ namespace Server.Infrastructure
         /// <summary>
         /// BIN references for alfabank cards
         /// </summary>
+        
         public static string[] AlfaBINs = {
+                "275463",
                 "408396",
                 "408397",
                 "410584",

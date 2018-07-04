@@ -25,7 +25,9 @@ namespace Server.Data
         /// Get one card by number
         /// </summary>
         /// <param name="cardNumber">number of the cards</param>
-        public Card GetCard(string cardNumber) => throw new NotImplementedException();
+        public Card GetCard(string cardNumber) {
+            return GetCards().FirstOrDefault(x => x.CardNumber == cardNumber);
+        }
 
         /// <summary>
         /// Getter for cards

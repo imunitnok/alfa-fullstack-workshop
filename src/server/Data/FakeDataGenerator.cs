@@ -13,7 +13,7 @@ namespace Server.Data
             // create fake cards
             user.OpenNewCard("my salary", Currency.RUR, CardType.MAESTRO);
             user.OpenNewCard("my debt", Currency.EUR, CardType.VISA);
-            user.OpenNewCard("to my lovely wife", Currency.USD, CardType.MASTERCARD);
+            user.OpenNewCard("to my lovely cat", Currency.USD, CardType.MASTERCARD);
 
             return user.Cards;
         }
