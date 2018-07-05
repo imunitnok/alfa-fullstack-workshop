@@ -38,7 +38,7 @@ namespace Server.Data
         /// Get current logged user
         /// </summary>
         public User GetCurrentUser()
-            => currentUser == null ? currentUser : throw new BusinessLogicException(TypeBusinessException.USER, "User is null");
+            => currentUser != null ? currentUser : throw new BusinessLogicException(TypeBusinessException.USER, "User is null");
 
         /// <summary>
         /// Get range of transactions

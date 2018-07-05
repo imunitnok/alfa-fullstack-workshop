@@ -39,24 +39,24 @@ namespace Server.Controllers
 
             var card = _repository.GetCard(number);
             if  (card == null)
-                throw new UserDataException("Card not found", number);
+                throw new BusinessLogicException(TypeBusinessException.CARD, "Card is null", "Карта не найдена");
                 
             return _repository.GetCard(number);
         }
 
         // POST api/cards
         [HttpPost]
-        public Card Post([FromBody]string cardName, [FromBody]string cardType, [FromBody]string currency) {
-            if(!Enum.IsDefined(typeof(CardType), cardType))
-                throw new UserDataException("Wrong type card", cardType);
+        public Card Post([FromBody]NewCard card) {
+            if(!Enum.IsDefined(typeof(CardType), card.CardType))
+                throw new UserDataException("Wrong type card", card.CardType);
 
-            if(!Enum.IsDefined(typeof(Currency), currency))
-                throw new UserDataException("Incorrect currency", currency);
+            if(!Enum.IsDefined(typeof(Currency), card.Currency))
+                throw new UserDataException("Incorrect currency", card.Currency);
             
-            var cardType_ = (CardType) Enum.Parse(typeof(CardType), cardType);
-            var currency_ = (Currency) Enum.Parse(typeof(Currency), currency);
+            var cardType = (CardType) Enum.Parse(typeof(CardType), card.CardType);
+            var currency = (Currency) Enum.Parse(typeof(Currency), card.Currency);
             var user = _repository.GetCurrentUser();
-            return user.OpenNewCard(cardName, currency_, cardType_);
+            return user.OpenNewCard(card.CardName, currency, cardType);
         }
 
         // DELETE api/cards/5

@@ -62,7 +62,7 @@ namespace Server.Models
                "From card and to card is Equal", "Нельзя перевести на туже карту");
 
             if (sum <= 0)
-                throw new UserDataException("Transaction need more then 0", $"from {from.CardName} to {to.CardName}");
+                throw new UserDataException("Transaction need more than 0", $"from {from.CardName} to {to.CardName}");
 
             if (!blService.CheckCardActivity(from))
                 throw new BusinessLogicException(TypeBusinessException.CARD,

@@ -105,4 +105,16 @@ namespace Server.Models
             return transaction;
         }
     }
+
+    public class NewCard {
+        public NewCard(string cardName, string currency, string cardType) 
+        {
+            CardName = cardName;
+            Currency = currency;
+            CardType = cardType;
+        }
+        public string CardName {get; set;}
+        public string Currency {get; set;}
+        public string CardType {get; set;}
+    }
 }
