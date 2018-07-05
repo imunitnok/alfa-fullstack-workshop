@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Server.Data;
 using Server.Services;
+using Server.Middlewares;
 
 namespace Server
 {
@@ -33,6 +34,7 @@ namespace Server
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseMiddleware<ExceptionMiddleware>();
             app.UseMvc();
         }
     }
