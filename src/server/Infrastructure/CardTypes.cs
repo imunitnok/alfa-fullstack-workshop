@@ -9,8 +9,8 @@ namespace Server.Infrastructure
     {
         UNKNOWN = 0,
         MASTERCARD = 1,
-        VISA = 2,
-        MAESTRO = 3,
-        MIR = 4
+        VISA = 4,
+        MAESTRO = 5,
+        MIR = 6
     }
 }

@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Server.Data;
 using Server.Services;
+using Server.Middlewares;
 
 namespace Server
 {
@@ -20,9 +21,9 @@ namespace Server
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc();
             services.AddSingleton<IBankRepository, InMemoryBankRepository>();
             services.AddTransient<ICardService, CardService>();
-            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -33,6 +34,7 @@ namespace Server
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseMiddleware<ExceptionMiddleware>();
             app.UseMvc();
         }
     }

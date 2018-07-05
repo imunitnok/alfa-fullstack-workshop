@@ -104,5 +104,34 @@ namespace Server.Models
             _transactions.Add(transaction);
             return transaction;
         }
+
+        /// <summary>
+        /// This method return transactions in range of this card
+        /// </summary>
+        /// <param name="from">range starts (include element index of from)</param>
+        /// <param name="to">range ends (include element index of to)</param>
+        public IEnumerable<Transaction> GetTransactions(int from, int to) {
+            to++;
+            if(from < to && to <=0 || to > from && from > _transactions.Count - 1) return new List<Transaction>();
+            if(from < 0) from = 0;
+            if(to > _transactions.Count) to = _transactions.Count;
+            if(from >= to) new UserDataException("Incorrect range", "from: " + from + " to: " + to);
+            return new ReadOnlyCollection<Transaction>(((List<Transaction>) _transactions).GetRange(from, to - from));
+        }
+    }
+
+    /// <summary>
+    /// Class contains neccessary data for card creation
+    /// </summary>
+    public class NewCard {
+        public NewCard(string cardName, string currency, string cardType) 
+        {
+            CardName = cardName;
+            Currency = currency;
+            CardType = cardType;
+        }
+        public string CardName {get;}
+        public string Currency {get;}
+        public string CardType {get;}
     }
 }

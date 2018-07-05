@@ -7,6 +7,7 @@ using Server.Data;
 using Server.Exceptions;
 using Server.Models;
 using Server.Services;
+using Server.Infrastructure;
 
 namespace Server.Controllers
 {
@@ -31,16 +32,32 @@ namespace Server.Controllers
         [HttpGet("{number}")]
         public Card Get(string number)
         {
+            if (!_cardService.CheckCardNumber(number))
+                throw new UserDataException("Incorrect cardNumber", number);
             if (!_cardService.CheckCardEmmiter(number))
-                throw new UserDataException("Card number is invalid", number);
-            //TODO validation
+                throw new UserDataException("Card emmiter is invalid", number);
+
+            var card = _repository.GetCard(number);
+            if  (card == null)
+                throw new BusinessLogicException(TypeBusinessException.CARD, "Card is null", "Карта не найдена");
+                
             return _repository.GetCard(number);
         }
 
         // POST api/cards
         [HttpPost]
-        public IActionResult Post([FromBody]string cardType)
-            => throw new NotImplementedException();
+        public Card Post([FromBody]NewCard card) {
+            if(!Enum.IsDefined(typeof(CardType), card.CardType))
+                throw new UserDataException("Wrong type card", card.CardType);
+
+            if(!Enum.IsDefined(typeof(Currency), card.Currency))
+                throw new UserDataException("Incorrect currency", card.Currency);
+            
+            var cardType = (CardType) Enum.Parse(typeof(CardType), card.CardType);
+            var currency = (Currency) Enum.Parse(typeof(Currency), card.Currency);
+            var user = _repository.GetCurrentUser();
+            return user.OpenNewCard(card.CardName, currency, cardType);
+        }
 
         // DELETE api/cards/5
         [HttpDelete("{number}")]

@@ -62,7 +62,7 @@ namespace Server.Models
                "From card and to card is Equal", "Нельзя перевести на туже карту");
 
             if (sum <= 0)
-                throw new UserDataException("Transaction need more then 0", $"from {from.CardName} to {to.CardName}");
+                throw new UserDataException("Transaction need more than 0", $"from {from.CardName} to {to.CardName}");
 
             if (!blService.CheckCardActivity(from))
                 throw new BusinessLogicException(TypeBusinessException.CARD,
@@ -103,5 +103,19 @@ namespace Server.Models
             CardToNumber = to.CardNumber;
             ToSum = blService.GetConvertSum(sum, Currency.RUR, to.Currency);
         }
+    }
+
+    /// <summary>
+    /// Class contains neccessary data for transaction creation
+    /// </summary>
+    public class NewTransaction {
+        public NewTransaction(decimal sum, string from, string to) {
+            From = from;
+            To = to;
+            Sum = sum;
+        }
+        public string From { get; }
+        public string To { get; }
+        public decimal Sum { get; }
     }
 }

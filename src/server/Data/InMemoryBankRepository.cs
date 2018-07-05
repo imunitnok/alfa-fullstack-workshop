@@ -25,7 +25,9 @@ namespace Server.Data
         /// Get one card by number
         /// </summary>
         /// <param name="cardNumber">number of the cards</param>
-        public Card GetCard(string cardNumber) => throw new NotImplementedException();
+        public Card GetCard(string cardNumber) {
+            return GetCards().FirstOrDefault(x => x.CardNumber == cardNumber);
+        }
 
         /// <summary>
         /// Getter for cards
@@ -36,7 +38,7 @@ namespace Server.Data
         /// Get current logged user
         /// </summary>
         public User GetCurrentUser()
-            => currentUser == null ? currentUser : throw new BusinessLogicException(TypeBusinessException.USER, "User is null");
+            => currentUser != null ? currentUser : throw new BusinessLogicException(TypeBusinessException.USER, "User is null");
 
         /// <summary>
         /// Get range of transactions
@@ -44,8 +46,12 @@ namespace Server.Data
         /// <param name="cardnumber"></param>
         /// <param name="from">from range</param>
         /// <param name="to">to range</param>
-        public IEnumerable<Transaction> GetTranasctions(string cardnumber, int from, int to)
-            => throw new NotImplementedException();
+        public IEnumerable<Transaction> GetTransactions(string cardNumber, int from, int to) {
+            var card = GetCard(cardNumber);
+            if(card == null) 
+                throw new BusinessLogicException(TypeBusinessException.CARD, "Card is null", "Карта не найдена");
+            return card.GetTransactions(from, to);
+        }
 
         /// <summary>
         /// OpenNewCard
@@ -59,7 +65,14 @@ namespace Server.Data
         /// <param name="sum">sum of operation</param>
         /// <param name="from">card number</param>
         /// <param name="to">card number</param>
-        public void TransferMoney(decimal sum, string from, string to)
-            => throw new NotImplementedException();
+        public Transaction TransferMoney(decimal sum, string from, string to)
+        {
+            var cardFrom = GetCard(from);
+            var cardTo = GetCard(to);
+            var transaction = new Transaction(sum, cardFrom, cardTo);
+            cardFrom.AddTransaction(transaction);
+            cardTo.AddTransaction(transaction);
+            return transaction;
+        }
     }
 }

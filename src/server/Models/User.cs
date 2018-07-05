@@ -94,8 +94,8 @@ namespace Server.Models
             if (Cards.Any(x => x.CardName == shortCardName))
                 throw new UserDataException("Card is already exist", shortCardName);
 
-            var newCard = new Card(blService.GenerateNewCardNumber(cardType),
-                                    shortCardName, cardType, currency);
+            var cardNumber = blService.GenerateNewCardNumber(cardType);
+            var newCard = new Card(cardNumber, shortCardName, cardType, currency);
 
             _cards.Add(newCard);
             blService.AddBonusOnOpen(newCard);
