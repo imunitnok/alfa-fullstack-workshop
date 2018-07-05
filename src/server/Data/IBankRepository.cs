@@ -32,7 +32,7 @@ namespace Server.Data
         /// <param name="sum">sum of operation</param>
         /// <param name="from">card number</param>
         /// <param name="to">card number</param>
-        void TransferMoney(decimal sum, string from, string to);
+        Transaction TransferMoney(decimal sum, string from, string to);
 
         /// <summary>
         /// Get range of transactions
@@ -40,7 +40,7 @@ namespace Server.Data
         /// <param name="cardnumber"></param>
         /// <param name="from">from range</param>
         /// <param name="to">to range</param>
-        IEnumerable<Transaction> GetTranasctions(string cardnumber, int from, int to);
+        IEnumerable<Transaction> GetTransactions(string cardnumber, int from, int to);
 
         /// <summary>
         /// Get current logged user
